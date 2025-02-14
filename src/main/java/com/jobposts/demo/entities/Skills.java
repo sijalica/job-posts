@@ -5,29 +5,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
-@Entity
-@Table(name = "users_type")
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class UsersType {
+@Table(name = "skills")
+@Entity
+public class Skills {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userTypeId;
+    private int id;
 
-    private String userTypeName;
+    private String name;
+    private String experienceLevel;
+    private String yearsOfExperience;
 
-    @OneToMany(targetEntity = Users.class, mappedBy = "userTypeId", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Users> users;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "job_seeker_profile")
+    private JobSeekerProfile jobSeekerProfile;
 }
